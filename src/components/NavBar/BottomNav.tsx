@@ -35,6 +35,8 @@ export default function BottomNav() {
   const [isFixed, setIsFixed] = useState(false);
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const handleScroll = () => {
       setIsFixed(window.scrollY > 50);
     };
@@ -48,7 +50,7 @@ export default function BottomNav() {
     setOpenDropdowns((prev) => ({
       ...prev,
       [label]: !prev[label],
-    }));  
+    }));
   };
 
   const closeMobileMenu = () => {
@@ -58,9 +60,8 @@ export default function BottomNav() {
 
   return (
     <div
-      className={`w-full bg-white py-6 shadow-sm transition-all duration-500 ${
-        isFixed ? 'fixed-nav fixed left-0 top-0 z-' : ''
-      }`}
+      className={`w-full bg-white py-6 shadow-sm transition-all duration-500 ${isFixed ? 'fixed-nav fixed left-0 top-0 z-50' : ''
+        }`}
     >
       <div className='flex w-full items-center justify-between px-[8%] text-gray-700 lg:px-[16%]'>
         {/* Logo mobile */}
@@ -68,15 +69,15 @@ export default function BottomNav() {
           Top<span className='text-[var(--second)]'>Gun</span>
         </Link>
 
-        {/*Logo desktop quando fixar*/}
-        <Link
-          href='/'  
-          className={`Audiowide text-3xl font-bold lg:block ${
-            isFixed ? 'text-[var(--second)]' : 'text-[var(--black)]'
-          } hidden`}
-        >
-          Top<span className='text-[var(--second)]'>Gun</span>
-        </Link>
+        {/* Logo desktop quando fixar */}
+        {isFixed && (
+          <Link
+            href='/'
+            className='Audiowide text-3xl font-bold hidden lg:block text-[var(--second)]' 
+          >
+            Top<span className='text-[var(--second)]'>Gun</span>
+          </Link>
+        )}
 
         {/* Menu */}
         <nav className='hidden lg:flex items-center gap-6 absolute left-1/2 -translate-x-1/2'>
@@ -112,7 +113,7 @@ export default function BottomNav() {
               >
                 {link.label}
 
-             
+
               </Link>
             ),
           )}

@@ -44,3 +44,21 @@ html, body {
   width: 100%;
   overflow-x: hidden;
 }
+
+.fixed-nav {
+  animation: anim-fixed var(--transition-slow) forwards linear;
+  box-shadow: 0 2px 10px rgba(131, 131, 131, 0.6);
+  z-index: 9999;
+}
+ 
+@keyframes anim-fixed {
+0% {
+transform: translateY(-100px);
+opacity: 0;
+}
+100% {
+transform: translateY(0);
+opacity: 1;
+}
+
+}
